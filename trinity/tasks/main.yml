@@ -1,0 +1,6 @@
+---
+- include: install.yml
+- include: users.yml
+- include: general.yml
+- include: core.yml
+- include: db.yml

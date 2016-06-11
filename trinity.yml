@@ -1,0 +1,6 @@
+---
+- name: Configure TrinityCore on a local VM
+  hosts: trinity
+  remote_user: root
+  roles:
+    - trinity

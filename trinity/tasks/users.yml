@@ -1,0 +1,21 @@
+
+- name: Create an admin group
+  group: name=admin gid=999 state=present
+
+- name: Setup Trinity user
+  user: name=trinity comment="Trinity User" uid=10000 group=admin
+
+- name: Import keys for the trinity user
+  authorized_key: user=trinity key=https://github.com/derekjhunt.keys
+
+- name: Import keys for the root user
+  authorized_key: user=root key=https://github.com/derekjhunt.keys
+
+- name: Copy sudo configuration to allow the admin group access
+  copy:
+    src=etc/sudoers.d/admin
+    dest=/etc/sudoers.d/
+    owner=root
+    group=root
+    mode=0440
+  tags: sudo

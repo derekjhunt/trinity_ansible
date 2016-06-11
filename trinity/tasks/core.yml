@@ -1,0 +1,6 @@
+---
+  - name: Clone the 3.3.5 version (Vanilla WOW) branch
+    git: repo=git://github.com/TrinityCore/TrinityCore.git
+       dest=/opt/TrinityCore
+       version=3.3.5
+       update=yes

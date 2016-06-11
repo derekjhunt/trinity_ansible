@@ -1,0 +1,15 @@
+---
+- name: Grab latest database
+  get_url:
+    url=https://github.com/TrinityCore/TrinityCore/releases/download/TDB335.61/TDB_full_335.61_2016_04_11.7z
+    dest=/opt/
+    mode=0755
+  register: get_db
+
+- mysql_db: name=auth state=present
+- mysql_db: name=world state=present
+- mysql_db: name=characters state=present
+
+- mysql_user: name=trinity password=trinity priv=auth.*:ALL state=present
+- mysql_user: name=trinity password=trinity priv=world.*:ALL state=present
+- mysql_user: name=trinity password=trinity priv=characters.*:ALL state=present

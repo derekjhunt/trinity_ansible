@@ -1,0 +1,63 @@
+---
+- name: Adding DotDeb APT repository key
+  when: ansible_os_family == 'Debian'
+  apt_key:
+    url: "http://www.dotdeb.org/dotdeb.gpg"
+    state: present
+
+- name: Add DotDeb Apt repository for Wheezy
+  when: ansible_os_family == 'Debian' and ansible_distribution_release == 'wheezy'
+  apt_repository:
+    repo: "deb http://packages.dotdeb.org wheezy all"
+    update_cache: yes
+
+- name: Add DotDeb Apt repository for Jessie
+  when: ansible_os_family == 'Debian' and ansible_distribution_release == 'jessie'
+  apt_repository:
+    repo: "deb http://packages.dotdeb.org jessie all"
+    update_cache: yes
+
+- name: System - Install base packages
+  apt: pkg={{item}} state=present
+  with_items:
+    - git
+    - nmap
+    - ntp
+    - rsync
+    - vim
+    - wget
+    - curl
+    - openjdk-7-jre-headless
+    - sudo
+    - zsh
+    - unzip
+    - python-simplejson
+    - lvm2
+    - redis-tools
+    - open-vm-tools
+    - exim4
+    - python-mysqldb
+
+
+# https://trinitycore.atlassian.net/wiki/display/tc/Linux+Requirements
+- name: System - Install TrinityCore packages
+  apt: pkg={{item}} state=present
+  with_items:
+    - cmake
+    - make
+    - gcc
+    - g++
+    - libmysqlclient-dev
+    - libssl-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libncurses-dev
+    - libboost-dev
+    - libboost-thread-dev
+    - libboost-system-dev
+    - libboost-filesystem-dev
+    - libboost-program-options-dev
+    - libboost-iostreams-dev
+    - mysql-server
+    - mysql-client
+    - p7zip
